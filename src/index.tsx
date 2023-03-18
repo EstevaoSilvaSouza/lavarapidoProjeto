@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App";
 import { UserProvider } from "./context/UserProvider";
 import { ToastContainer } from "react-toastify";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(

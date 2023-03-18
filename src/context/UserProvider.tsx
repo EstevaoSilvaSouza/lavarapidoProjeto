@@ -18,6 +18,7 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
       let valid = await ValidateToken(token);
       if (valid) {
         setUser(valid);
+        setToken(token);
       }
     }
   };
@@ -28,6 +29,7 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
 
     if (userData) {
       localStorage.setItem("Token", userData.Token);
+      setToken(userData.Token);
       setUser(userData?.User);
       return true;
     }
