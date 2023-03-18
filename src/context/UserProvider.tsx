@@ -7,6 +7,7 @@ import { UserContext } from "./UserContext";
 export const UserProvider = ({ children }: { children: JSX.Element }) => {
   const [User, setUser] = React.useState<IUserMap | null>(null);
   const [Token, setToken] = React.useState<string | null>(null);
+  const [Message, setMesage] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     Validate();
@@ -34,6 +35,7 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
       return true;
     }
 
+    setMesage("Falha ao realizar login!");
     return false;
   };
 
@@ -43,7 +45,9 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   return (
-    <UserContext.Provider value={{ User, Token, LoginAccount, ValidateToken }}>
+    <UserContext.Provider
+      value={{ User, Token, LoginAccount, ValidateToken, Message }}
+    >
       {children}
     </UserContext.Provider>
   );

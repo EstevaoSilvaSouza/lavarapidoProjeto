@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [payload, SetPayload] = React.useState({ Login: "", Password: "" });
+  const [message, setMessage] = React.useState<string | null>(null);
   const { LoginAccount } = useContext(UserContext);
 
   const HandleChangeLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,15 +27,21 @@ const Login = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    let user = await LoginAccount(payload);
-    if (user) {
-      toast.success("Logado Com sucesso", {
-        theme: "colored",
-        icon: "🚀",
-      });
+    let user = await LoginAccount(payload)
+      .then((a: any) => {
+        console.log("aqui");
+        toast.success("Logado Com sucesso", {
+          theme: "colored",
+          icon: "🚀",
+        });
 
-      Navigate("/app");
-    }
+        Navigate("/app");
+      })
+      .catch((e: any) => {
+        console.log("entrou aqui");
+        console.log(e);
+        setMessage(e?.message);
+      });
   };
 
   return (
@@ -66,6 +73,8 @@ const Login = () => {
         <div>
           <BtnLogin onClick={SubmiteLogin}>Acessar</BtnLogin>
         </div>
+
+        {message && <p>{message}</p>}
       </DivLogin>
     </DivMainlogin>
   );
