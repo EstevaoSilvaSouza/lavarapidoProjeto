@@ -2,8 +2,10 @@ import React from "react";
 import { DivMainHeader } from "../../../styles/HeaderStyel";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-
+import { UserContext } from "../../../context/UserContext";
 const Header: React.FC = () => {
+  const { User } = React.useContext(UserContext);
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -26,9 +28,17 @@ const Header: React.FC = () => {
               <NavDropdown.Item as={Link} to={"usuario/criar"}>
                 Criar Usuario
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Log Acesso</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Auditoria</NavDropdown.Item>
+              {User?.Type == "Admin" && (
+                <>
+                  <NavDropdown.Item href="#action/3.3">
+                    Log Acesso
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4">
+                    Auditoria
+                  </NavDropdown.Item>
+                </>
+              )}
             </NavDropdown>
 
             <NavDropdown title="Cliente" id="collasible-nav-dropdown">
